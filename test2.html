@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>동물 소개</title>
+  <style>
+    body {
+      text-align: center;
+      font-family: 'Arial', sans-serif;
+    }
+    .animal-container {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-top: 50px;
+    }
+    .animal-container img {
+      width: 180px;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+    .animal-container img:hover {
+      transform: scale(1.05);
+    }
+    h1 {
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+  <h1>동물 사진을 눌러보세요!</h1>
+  <p></p>
+
+  <div class="animal-container">
+    <!-- 강아지 이미지 -->
+    <a href="https://namu.wiki/w/%EA%B0%95%EC%95%84%EC%A7%80" target="_blank">
+      <img src="https://i.namu.wiki/i/DWd8RJGyoZoehrUwkfTQgGnDwOy0IGQX6-8lOgWD3a-1NY5l-qyaNx-KrcMjBKB9O38zlaJjw9wpvz2GQSmNPAs7VR07r5zDyQpk8GpMI5oF1evKMQu6esA6mblH3KQuwN1wRCq9RMXtPw4_mlX-Dg.webp" alt="강아지">
+    </a>
+
+    <!-- 고양이 이미지 -->
+    <a href="https://namu.wiki/w/%EA%B3%A0%EC%96%91%EC%9D%B4" target="_blank">
+      <img src="https://images.unsplash.com/photo-1592194996308-7b43878e84a6?auto=format&fit=crop&w=600&q=80" alt="고양이">
+    </a>
+
+    <!-- 앵무새 이미지 -->
+    <a href="https://namu.wiki/w/%EC%95%B5%EB%AC%B4%EC%83%88" target="_blank">
+      <img src="https://i.namu.wiki/i/LVZVNX4JeaYr7r6V3B7Lga3WQmondHpi1jtqmcNV6B9GZXRgkJwESx357MCejbfBf_Nkm588kfgIMHoz_yMSYQopfwTSB8qH0JUAfVcAHqkY3exGtoPmcQtOm40kV32YHkDcwtVTUuEVw9gF80YhDA.webp" alt="앵무새">
+    </a>
+  </div>
+</body>
+</html>
