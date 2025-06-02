@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pacman Game</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      position: relative;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+    }
+    img {
+      width: 100px;
+      position: absolute;
+      border-radius: 50%;
+      user-select: none;
+    }
+    .item {
+      width: 50px;
+      height: 50px;
+    }
+    #hud {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      background: rgba(0, 0, 0, 0.6);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-size: 1.2rem;
+      z-index: 1000;
+    }
+  </style>
+</head>
+<body>
+  <div id="hud">
+    ⏱️ <span id="time">30</span>s &nbsp;&nbsp;&nbsp; 🎯 Score: <span id="score">0</span>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      let score = 0;
+      let timeLeft = 30;
+      let status = false;
+      let gameOver = false;
+
+      const hudTime = document.getElementById("time");
+      const hudScore = document.getElementById("score");
+
+      // 팩맨 생성
+      const pac = document.createElement("img");
+      pac.src = "./img/pac1.png";
+      document.body.appendChild(pac);
+
+      setInterval(() => {
+        pac.src = status ? "./img/pac1.png" : "./img/pac2.png";
+        status = !status;
+      }, 200);
+
+      let x = 10, y = 10;
+      const step = 40;
+
+      const move = () => {
+        pac.style.left = `${x * step}px`;
+        pac.style.top = `${y * step}px`;
+        checkCollision();
+      };
+
+      window.addEventListener("keydown", (event) => {
+        if (gameOver) return;
+
+        if (event.key === "ArrowLeft") {
+          x -= 1;
+          pac.style.transform = "scaleX(-1)";
+        } else if (event.key === "ArrowRight") {
+          x += 1;
+          pac.style.transform = "scaleX(1)";
+        } else if (event.key === "ArrowUp") {
+          y -= 1;
+          pac.style.transform = "rotate(270deg)";
+        } else if (event.key === "ArrowDown") {
+          y += 1;
+          pac.style.transform = "rotate(90deg)";
+        }
+        move();
+      });
+
+      // 아이템 관련
+      let item = null;
+
+      const spawnItem = () => {
+        if (gameOver) return;
+
+        if (item) item.remove();
+
+        item = document.createElement("img");
+        item.src = "./img/item.png";
+        item.classList.add("item");
+
+        const maxX = window.innerWidth - 60;
+        const maxY = window.innerHeight - 60;
+
+        const randomX = Math.floor(Math.random() * maxX);
+        const randomY = Math.floor(Math.random() * maxY);
+
+        item.style.left = `${randomX}px`;
+        item.style.top = `${randomY}px`;
+
+        document.body.appendChild(item);
+      };
+
+      const checkCollision = () => {
+        if (!item || gameOver) return;
+
+        const pacRect = pac.getBoundingClientRect();
+        const itemRect = item.getBoundingClientRect();
+
+        const isColliding = !(
+          pacRect.right < itemRect.left ||
+          pacRect.left > itemRect.right ||
+          pacRect.bottom < itemRect.top ||
+          pacRect.top > itemRect.bottom
+        );
+
+        if (isColliding) {
+          item.remove();
+          item = null;
+          score += 1;
+          hudScore.textContent = score;
+          spawnItem();
+        }
+      };
+
+      // 제한 시간 타이머
+      const countdown = setInterval(() => {
+        if (timeLeft <= 0) {
+          clearInterval(countdown);
+          gameOver = true;
+          if (item) item.remove();
+          alert(`⏰ 시간이 종료되었습니다!\n당신의 점수는 ${score}점 입니다!`);
+        } else {
+          timeLeft -= 1;
+          hudTime.textContent = timeLeft;
+        }
+      }, 1000);
+
+      spawnItem(); // 첫 아이템
+    });
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
+

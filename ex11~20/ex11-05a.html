@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>할인 계산기</title>
+    <script>
+      const pt = prompt("원가를 입력하세요."); // 사용자 입력 받기
+      const price = parseFloat(pt); // 숫자로 변환
+
+      if (isNaN(price)) {
+        document.write("<h1>올바른 숫자를 입력해주세요.</h1>");
+      } else {
+        const discount10 = price * 0.9;
+        const discount20 = price * 0.8;
+        const discount30 = price * 0.7;
+
+        document.write("<h1>가격 계산 결과</h1>");
+        document.write("<p>원가: " + price + "원</p>");
+        document.write("<p>10% 할인된 값: " + discount10 + "원</p>");
+        document.write("<p>20% 할인된 값: " + discount20 + "원</p>");
+        document.write("<p>30% 할인된 값: " + discount30 + "원</p>");
+      }
+    </script>
+  </head>
+  <body></body>
+</html>
+

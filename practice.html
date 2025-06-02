@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>자리배치도</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    h1 {
+      margin-top: 30px;
+    }
+    .seat-container {
+      display: grid;
+      grid-template-columns: repeat(5, 80px); /* 한 줄에 5명 */
+      gap: 10px;
+      justify-content: center;
+      margin-top: 30px;
+    }
+    .seat {
+      border: 1px solid #333;
+      padding: 10px;
+    }
+    .input-container {
+      margin-top: 30px;
+    }
+    input {
+      padding: 5px;
+      margin: 5px;
+    }
+    button {
+      padding: 5px 10px;
+    }
+  </style>
+</head>
+<body>
+
+<h1>자리배치도</h1>
+
+<div class="input-container">
+  <p>한줄에 몇명 앉을래?</p>
+  <input type="number" id="perRow" value="5"><br>
+  <p>총 인원은 몇명?</p>
+  <input type="number" id="totalPeople" value="22"><br>
+  <button onclick="generateSeats()">확인</button>
+</div>
+
+<div class="seat-container" id="seatContainer">
+  <!-- 좌석 배치가 여기 생성됩니다 -->
+</div>
+
+<script>
+  function generateSeats() {
+    const perRow = parseInt(document.getElementById('perRow').value);
+    const totalPeople = parseInt(document.getElementById('totalPeople').value);
+    const container = document.getElementById('seatContainer');
+
+    // 그리드 열 개수 업데이트
+    container.style.gridTemplateColumns = `repeat(${perRow}, 80px)`;
+
+    // 기존 좌석 제거
+    container.innerHTML = '';
+
+    for (let i = 1; i <= totalPeople; i++) {
+      const seat = document.createElement('div');
+      seat.className = 'seat';
+      seat.textContent = `좌석${i}`;
+      container.appendChild(seat);
+    }
+  }
+
+  // 페이지 로딩 시 기본 좌석 표시
+  window.onload = generateSeats;
+</script>
+
+</body>
+</html>
